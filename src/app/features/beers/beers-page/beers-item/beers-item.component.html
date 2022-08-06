@@ -1,0 +1,22 @@
+<mat-list-item>
+    <mat-card class="beer__item">
+        <mat-card-header class="beer__item-header">
+            <mat-card-title>{{ beer.name }}</mat-card-title>
+            <mat-card-subtitle>{{ beer.abv | currency: 'USD'}}</mat-card-subtitle>
+        </mat-card-header>
+        <div class="beer__item-content">
+            <img
+                class="beer__item-img"
+                [src]="beer.image_url"
+                [alt]="beer.name"
+            >
+            <mat-card-content class="beer__description">
+                <p>{{ beer.description }}</p>
+            </mat-card-content>
+        </div>
+        <mat-card-actions>
+            <button mat-button>LIKE</button>
+            <button mat-button>MORE</button>
+        </mat-card-actions>
+    </mat-card>
+</mat-list-item>
