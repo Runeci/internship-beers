@@ -1,0 +1,39 @@
+.search-container {
+    position: relative;
+}
+
+.search-form {
+    max-height: 60px;
+
+    ::ng-deep .mat-form-field-infix {
+        border: none;
+    }
+
+    ::ng-deep .mat-form-field-wrapper {
+        padding: 0;
+    }
+
+    ::ng-deep .mat-form-field-underline {
+
+        bottom: 0;
+    }
+}
+
+.search-icon {
+    font-size: 130%;
+}
+
+.search-input {
+    border: none;
+}
+
+.search-label {
+    font-size: 14px;
+}
+
+.search-resent__container {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 5px 19px 0 rgba(34, 60, 80, 0.2);
+}
