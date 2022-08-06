@@ -1,12 +1,12 @@
 <div class="search-container">
-    <mat-form-field class="search-form">
+    <mat-form-field class="search-form" appearance="outline">
         <mat-label class="search-label">Search</mat-label>
-        <input matInput type="search" class="search-input">
+        <input matInput type="search" class="search-input" placeholder="Beer name">
         <mat-icon matSuffix class="search-icon">search</mat-icon>
     </mat-form-field>
     <mat-list *ngIf="resentSearches.length" class="search-resent__container">
         <mat-list-item *ngFor="let searchRes of resentSearches">
-            <mat-icon mat-list-icon>schedule</mat-icon>
+            <mat-icon mat-list-icon class="search-icon">schedule</mat-icon>
             <div mat-line> {{ searchRes }} </div>
         </mat-list-item>
     </mat-list>

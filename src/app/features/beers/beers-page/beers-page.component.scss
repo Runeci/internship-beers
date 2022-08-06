@@ -1,5 +1,11 @@
 .beers-page__container {
     max-width: 1260px;
-    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    margin: 40px auto;
     width: 100%;
+}
+
+.beers-page__search {
+    align-self: center;
 }
