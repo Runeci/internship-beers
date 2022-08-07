@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BeersApiService } from '../../beers-api.service';
 import { Beer } from '../../../../shared/models/beers.interface';
-import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { BeersService } from '../../beers.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-beers-list',
@@ -9,15 +11,17 @@ import { Observable } from 'rxjs';
     styleUrls: ['./beers-list.component.scss']
 })
 export class BeersListComponent implements OnInit {
-    public beers$!: Observable<Beer[]>;
+    public beers$: BehaviorSubject<Beer[]>;
+    private beersSearchValue = '';
 
     constructor(
-        private beersApiService: BeersApiService
+        private beersApiService: BeersApiService,
+        private beerService: BeersService,
+        private activatedRoute: ActivatedRoute,
     ) {
     }
 
     public ngOnInit(): void {
-        this.beers$ = this.beersApiService.getBeers();
+        this.beers$ = this.beerService.beers$;
     }
-
 }

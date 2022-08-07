@@ -1,3 +1,11 @@
-<ul class="beers__container">
-    <app-beers-item *ngFor="let beer of beers$ | async" [beer]="beer"></app-beers-item>
-</ul>
+<div class="beers__container">
+    <ul class="beers__list" *ngIf="(beers$ | async).length; else error">
+        <app-beers-item *ngFor="let beer of beers$ | async" [beer]="beer"></app-beers-item>
+    </ul>
+    <ng-template #error>
+        <div class="beers__not-found">
+            <mat-icon>sentiment_dissatisfied</mat-icon>
+            <p>There were no properties found for the given location</p>
+        </div>
+    </ng-template>
+</div>

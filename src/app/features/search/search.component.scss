@@ -1,8 +1,36 @@
-.search-form {
-    min-width: 500px;
-    width: 100%;
+.search__container {
+    position: relative;
 }
 
-::ng-deep .mat-form-field-suffix {
-    cursor: pointer;
+.search__form {
+    width: 100%;
+    box-sizing: border-box;
 }
+
+.search-resent__container {
+    position: absolute;
+    top: 56px;
+    width: 100%;
+    padding: 0;
+    background-color: #fff;
+    box-shadow: 0 4px 8px 0 rgba(34, 60, 80, 0.2);
+    z-index: 1000;
+    border-radius: 0 0 5px 5px;
+    box-sizing: border-box;
+
+    .mat-list-icon {
+        font-size: 21px;
+    }
+}
+
+.mat-list-base .mat-list-item.mat-list-item-with-avatar,
+.mat-list-base .mat-list-option.mat-list-item-with-avatar, {
+    height: 40px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+    }
+}
+

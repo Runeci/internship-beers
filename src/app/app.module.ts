@@ -16,6 +16,7 @@ import { BeersItemComponent } from './features/beers/beers-page/beers-item/beers
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule } from '@angular/material/card';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { MatCardModule } from '@angular/material/card';
         HttpClientModule,
         BrowserAnimationsModule,
         MatCardModule,
+        ReactiveFormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
