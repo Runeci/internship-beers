@@ -40,7 +40,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     public ngOnInit(): void {
-        this.resentSearches = this.lsService.getFromLocalStorage('resentSearches');
+        this.resentSearches = this.lsService.getFromLocalStorage('resentSearches') || [];
         this.searchControl = new FormControl('', Validators.pattern('^[a-z A-Z 0-9]+$'));
 
         this.queryParamsSubscription = this.activatedRoute.queryParams
