@@ -11,6 +11,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { BeersService } from '../beers/beers.service';
+import { LocalStorageService } from '../../shared/services/local-storage.service';
 
 @Component({
     selector: 'app-search',
@@ -32,12 +33,14 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(
         private renderer: Renderer2,
         private beersService: BeersService,
+        private lsService: LocalStorageService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
     ) {
     }
 
     public ngOnInit(): void {
+        this.resentSearches = this.lsService.getFromLocalStorage('resentSearches');
         this.searchControl = new FormControl('', Validators.pattern('^[a-z A-Z 0-9]+$'));
 
         this.queryParamsSubscription = this.activatedRoute.queryParams
@@ -114,6 +117,7 @@ export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
             this.resentSearches.pop();
         }
         this.resentSearches.unshift(searchValue);
+        this.lsService.saveToLocalStorage('resentSearches', this.resentSearches);
     }
 
     private navigate(searchParam: string = null) {
