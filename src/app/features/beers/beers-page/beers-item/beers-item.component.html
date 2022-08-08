@@ -20,7 +20,7 @@
                 (click)="toggleFavBtn(beer)"
                 [ngClass]="{'beer__btn-dislike': favBeersIDs.includes(beer.id)}"
             >
-                {{favBeersIDs.includes(beer.id) ? 'REMOVE' : 'LIKE' }}
+                {{favBeersIDs.includes(beer.id) ? 'REMOVE' : 'ADD' }}
             </button>
             <button mat-button>MORE</button>
         </mat-card-actions>
