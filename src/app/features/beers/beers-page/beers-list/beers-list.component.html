@@ -1,21 +1,21 @@
 <div class="beers__container">
-    <div *ngIf="beers.length">
+    <div class="beers__inner-container" *ngIf="beers.length">
         <ul class="beers__list">
             <app-beers-item
                 *ngFor="let beer of beers" [beer]="beer"
             ></app-beers-item>
         </ul>
-        <button
-            *ngIf="moreToLoad"
-            class="beers__btn"
-            mat-flat-button
-            color="accent"
-            (click)="onLoadMoreBeers()"
-        >
-            MORE
-        </button>
+        <div class="beers__more">
+            <button
+                class="beers__btn"
+                mat-flat-button
+                color="accent"
+                (click)="onLoadMoreBeers()"
+            >
+                {{ moreToLoad ? ('More' | uppercase) : 'No More to Load' | uppercase}}
+            </button>
+        </div>
     </div>
-
 
     <mat-spinner *ngIf="loading$ | async"></mat-spinner>
 
@@ -23,6 +23,4 @@
         <mat-icon>sentiment_dissatisfied</mat-icon>
         <p>There were no properties found for the given location</p>
     </div>
-
-    <div class="beers__more-beers" *ngIf="!moreToLoad"> No More to Load</div>
 </div>

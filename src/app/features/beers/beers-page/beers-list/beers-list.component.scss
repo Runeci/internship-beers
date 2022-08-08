@@ -24,24 +24,15 @@
     }
 }
 
-.beers__more-beers {
+.beers__more {
     display: flex;
     align-items: center;
     justify-content: center;
-    text-transform: uppercase;
-    min-height: 36px;
-    width: 100%;
-    background-color: #ff4081;
-    font-weight: 500;
-    color: white;
-    border-radius: 4px;
-    cursor: default;
 }
 
 .beers__btn {
     max-width: 300px;
     width: 100%;
-    margin: 0 auto;
 }
 
 .mat-spinner {

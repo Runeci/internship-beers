@@ -7,7 +7,7 @@ import {
     finalize,
     map,
     Observable,
-    Subscription,
+    Subscription, take,
 } from 'rxjs';
 
 
@@ -23,7 +23,6 @@ export class BeersListComponent implements OnInit, OnDestroy {
     public loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
     public showEmptyInfo$: Observable<boolean> = this.loading$
         .pipe(map(isLoading => !isLoading && !this.beers.length));
-
 
     private beersQueryParamsSubscription: Subscription;
 
@@ -52,6 +51,7 @@ export class BeersListComponent implements OnInit, OnDestroy {
         this.loading$.next(true);
         this.beersApiService.getBeers(params)
             .pipe(
+                take(1),
                 finalize(() => this.loading$.next(false)),
             )
             .subscribe(
