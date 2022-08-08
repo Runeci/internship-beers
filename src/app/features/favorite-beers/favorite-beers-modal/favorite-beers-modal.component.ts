@@ -21,4 +21,12 @@ export class FavoriteBeersModalComponent implements OnInit {
         this.favItems = this.favBeerService.favItems;
     }
 
+    public onRemoveFav(favBeerIndex: number): void {
+        const favItemIndex = this.favBeerService.favItemsIDs.indexOf(favBeerIndex);
+        this.favBeerService.removeFromFav(favItemIndex);
+
+        if (!this.favItems.length) {
+            this.dialogRef.close();
+        }
+    }
 }
