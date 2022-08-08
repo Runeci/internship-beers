@@ -1,11 +1,28 @@
 <div class="beers__container">
-    <ul class="beers__list" *ngIf="(beers$ | async).length; else error">
-        <app-beers-item *ngFor="let beer of beers$ | async" [beer]="beer"></app-beers-item>
-    </ul>
-    <ng-template #error>
-        <div class="beers__not-found">
-            <mat-icon>sentiment_dissatisfied</mat-icon>
-            <p>There were no properties found for the given location</p>
-        </div>
-    </ng-template>
+    <div *ngIf="beers.length">
+        <ul class="beers__list">
+            <app-beers-item
+                *ngFor="let beer of beers" [beer]="beer"
+            ></app-beers-item>
+        </ul>
+        <button
+            *ngIf="moreToLoad"
+            class="beers__btn"
+            mat-flat-button
+            color="accent"
+            (click)="onLoadMoreBeers()"
+        >
+            MORE
+        </button>
+    </div>
+
+
+    <mat-spinner *ngIf="loading$ | async"></mat-spinner>
+
+    <div class="beers__not-found" *ngIf="showEmptyInfo$ | async">
+        <mat-icon>sentiment_dissatisfied</mat-icon>
+        <p>There were no properties found for the given location</p>
+    </div>
+
+    <div class="beers__more-beers" *ngIf="!moreToLoad"> No More to Load</div>
 </div>

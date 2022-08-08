@@ -1,7 +1,8 @@
-import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { BeersService } from '../beers/beers.service';
 
 @Component({
     selector: 'app-search',
@@ -9,7 +10,6 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit, OnDestroy {
-    @ViewChild('searchInput') searchInput: ElementRef;
     public searchControl: FormControl;
     public resentSearches: string[] = [];
     public resentIsOpened = false;
@@ -17,6 +17,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     private queryParamsSubscription: Subscription;
 
     constructor(
+        private beersService: BeersService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
     ) {
@@ -27,8 +28,8 @@ export class SearchComponent implements OnInit, OnDestroy {
 
         this.queryParamsSubscription = this.activatedRoute.queryParams
             .subscribe(params => {
-                    const searchInputVal = params['search'] ?
-                        params['search'].trim().replace('_', ' ') :
+                    const searchInputVal = params['beer_name'] ?
+                        params['beer_name'].trim().replace('_', ' ') :
                         '';
                     this.searchControl.setValue(searchInputVal);
                 },
@@ -37,10 +38,11 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     public onSearch(event: Event): void {
         if (this.searchControl.invalid) {
-            return
+            return;
         }
-
         event.stopPropagation();
+
+        this.beersService.clearBeers();
 
         const searchVal = this.searchControl.value
             .trim()
@@ -48,7 +50,9 @@ export class SearchComponent implements OnInit, OnDestroy {
 
         this.router.navigate([], {
             relativeTo: this.activatedRoute,
-            queryParams: { search: searchVal || null },
+            queryParams: {
+                beer_name: searchVal || null,
+            },
             queryParamsHandling: 'merge',
         });
 
@@ -56,10 +60,11 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     public resetSearchControl(): void {
+        this.beersService.clearBeers();
         this.searchControl.reset();
         this.router.navigate([], {
             relativeTo: this.activatedRoute,
-            queryParams: { search: null },
+            queryParams: { beer_name: null },
             queryParamsHandling: 'merge',
         });
     }
@@ -84,4 +89,5 @@ export class SearchComponent implements OnInit, OnDestroy {
         }
         this.resentSearches.unshift(searchValue);
     }
+
 }

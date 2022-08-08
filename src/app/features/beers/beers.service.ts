@@ -1,46 +1,54 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Beer } from '../../shared/models/beers.interface';
-import { BeersApiService } from './beers-api.service';
-import { BehaviorSubject, delay, Subject } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+
+export const BEERS_COUNT_PER_PAGE = 10;
+export const DEFAULT_PAGE_QUERY = 1;
+
+export interface QueryParamsBeers {
+    beer_name?: string,
+    page?: number,
+    per_page?: number
+}
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class BeersService {
-    public beers$: BehaviorSubject<Beer[]> = new BehaviorSubject<Beer[]>([]);
-    public searchParam: string;
+    public pageNumber = DEFAULT_PAGE_QUERY;
+    public beersArray: Beer[] = [];
+    public queryParams$: BehaviorSubject<QueryParamsBeers> = new BehaviorSubject({});
 
     constructor(
+        private router: Router,
         private activatedRoute: ActivatedRoute,
-        private beersApiService: BeersApiService,
     ) {
         this.activatedRoute.queryParams
-            .pipe(
-                delay(0)
-            )
             .subscribe(
-            params => {
-                this.searchParam = params['search'];
-                this.getBeers();
+                params => {
+                    const queryParams = {
+                        page: DEFAULT_PAGE_QUERY,
+                        per_page: BEERS_COUNT_PER_PAGE,
+                        ...params,
+                    };
+
+                    this.queryParams$.next(queryParams);
+                }
+            );
+    }
+
+    public loadMoreBeers() {
+        this.queryParams$.next(
+            {
+                ...this.queryParams$.getValue(),
+                page: ++this.pageNumber,
             }
         );
     }
 
-    public getBeers() {
-        if (this.searchParam) {
-            this.beersApiService.getBeersByName(this.searchParam)
-                .subscribe(
-                    (beers) => this.beers$.next(beers)
-                )
-            ;
-        } else if (!this.searchParam) {
-            this.beersApiService.getBeers(1)
-                .subscribe(
-                    (beers) => this.beers$.next(beers)
-                );
-        }
+    public clearBeers() {
+        this.beersArray = [];
     }
-
-
 }
