@@ -39,7 +39,8 @@ type BeerMethod = {
 }
 
 type BeerIngredients = {
-    ingredient: Record<string, BeerIngredient>[],
+    hops: BeerIngredient[],
+    malt: BeerIngredient[],
     yeast: string,
 }
 

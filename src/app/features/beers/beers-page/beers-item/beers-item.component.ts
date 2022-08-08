@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Beer } from '../../../../shared/models/beers.interface';
-import { BeersFavService } from '../../beers-fav.service';
+import { FavBeersService } from '../../../favorite-beers/fav-beers.service';
+
 
 @Component({
     selector: 'app-beers-item',
@@ -12,19 +13,19 @@ export class BeersItemComponent implements OnInit {
 
     favBeersIDs: Beer['id'][];
 
-    constructor(private beerFavService: BeersFavService) {
+    constructor(private beerFavService: FavBeersService) {
     }
 
     public ngOnInit(): void {
-        this.favBeersIDs = this.beerFavService.favItems;
+        this.favBeersIDs = this.beerFavService.favItemsIDs;
     }
 
-    public toggleFavBtn(beerId: Beer['id']) {
-        if (this.beerFavService.favItems.includes(beerId)) {
-            const favItemIndex = this.beerFavService.favItems.indexOf(beerId);
+    public toggleFavBtn(beer: Beer) {
+        if (this.beerFavService.favItemsIDs.includes(beer.id)) {
+            const favItemIndex = this.beerFavService.favItemsIDs.indexOf(beer.id);
             this.beerFavService.removeFromFav(favItemIndex);
         } else {
-            this.beerFavService.addToFav(beerId);
+            this.beerFavService.addToFav(beer);
         }
     }
 

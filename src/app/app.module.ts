@@ -20,6 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 import { MatBadgeModule } from '@angular/material/badge';
+import { FavoriteBeersModalComponent } from './features/favorite-beers/favorite-beers-modal/favorite-beers-modal.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -30,6 +32,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         BeersListComponent,
         BeersItemComponent,
         ScrollToTopComponent,
+        FavoriteBeersModalComponent,
     ],
     imports: [
         BrowserModule,
@@ -45,6 +48,7 @@ import { MatBadgeModule } from '@angular/material/badge';
         ReactiveFormsModule,
         MatProgressSpinnerModule,
         MatBadgeModule,
+        MatDialogModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

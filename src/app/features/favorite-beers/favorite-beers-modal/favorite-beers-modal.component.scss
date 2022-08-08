@@ -1,0 +1,29 @@
+.fav-beer__item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.fav-beer__item-card {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    max-width: 400px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.fav-beer__item-img {
+    max-width: 50px;
+    width: 100%;
+    height: 150px;
+    padding-left: 16px;
+    object-fit: contain;
+}
+
+.fav-beer__info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column
+}
+

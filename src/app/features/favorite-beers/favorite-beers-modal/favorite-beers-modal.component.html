@@ -1,0 +1,25 @@
+<div class="fav-beer__item-container">
+    <mat-list-item *ngFor="let favItem of favItems">
+        <mat-card class="fav-beer__item-card">
+            <img
+                class="fav-beer__item-img"
+                [src]="favItem.image_url"
+                [alt]="favItem.name"
+            >
+            <div class="fav-beer__info">
+                <mat-card-header class="fav-beer__item-header">
+                    <mat-card-title>{{ favItem.name }}</mat-card-title>
+                    <mat-card-subtitle>{{ favItem.abv | currency: 'USD'}}</mat-card-subtitle>
+                </mat-card-header>
+
+
+                <button
+                    class="fav-beer__btn-remove"
+                    mat-flat-button
+                    color="accent"
+                >REMOVE
+                </button>
+            </div>
+        </mat-card>
+    </mat-list-item>
+</div>
