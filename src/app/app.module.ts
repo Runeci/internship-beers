@@ -19,6 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
     declarations: [
@@ -43,6 +44,7 @@ import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-t
         MatCardModule,
         ReactiveFormsModule,
         MatProgressSpinnerModule,
+        MatBadgeModule,
     ],
     providers: [],
     bootstrap: [AppComponent]
