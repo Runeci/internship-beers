@@ -6,10 +6,9 @@
             type="search"
             class="search-input"
             placeholder="Beer name"
+            #searchInput
             [formControl]="searchControl"
             (keydown.enter)="onSearch($event)"
-            (focus)="resentIsOpened = true"
-            (blur)="resentIsOpened = false"
         >
         <mat-error *ngIf="searchControl.hasError('pattern')">
             Name should contain only letters and numbers
@@ -35,16 +34,19 @@
             </button>
         </div>
     </mat-form-field>
-    <mat-list
-        class="search-resent__container"
-        *ngIf="resentSearches.length && resentIsOpened && searchControl.valid"
-    >
-        <mat-list-item
-            class="search-resent__item"
-            *ngFor="let searchRes of resentSearches"
+    <ng-container *ngIf="resentSearches.length && resentIsOpened && searchControl.valid">
+        <mat-list
+            #resentSearchesList
+            class="search-resent__container"
         >
-            <mat-icon mat-list-icon class="search-icon">schedule</mat-icon>
-            <div mat-line> {{ searchRes }} </div>
-        </mat-list-item>
-    </mat-list>
+            <mat-list-item
+                class="search-resent__item"
+                *ngFor="let searchRes of resentSearches"
+                (click)="recallSearch(searchRes)"
+            >
+                <mat-icon mat-list-icon class="search-icon">schedule</mat-icon>
+                <div mat-line> {{ searchRes }} </div>
+            </mat-list-item>
+        </mat-list>
+    </ng-container>
 </div>

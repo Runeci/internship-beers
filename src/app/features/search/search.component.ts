@@ -1,7 +1,15 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+    AfterViewInit,
+    Component,
+    ElementRef,
+    OnDestroy,
+    OnInit,
+    Renderer2,
+    ViewChild
+} from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { fromEvent, Observable, Subscription } from 'rxjs';
 import { BeersService } from '../beers/beers.service';
 
 @Component({
@@ -9,14 +17,20 @@ import { BeersService } from '../beers/beers.service';
     templateUrl: './search.component.html',
     styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit, AfterViewInit, OnDestroy {
+    @ViewChild('resentSearchesList', { read: ElementRef }) resentSearchesListRef: ElementRef;
+    @ViewChild('searchInput') searchInputRef: ElementRef;
+
     public searchControl: FormControl;
     public resentSearches: string[] = [];
     public resentIsOpened = false;
 
+    private clickEvent$: Observable<Event> = fromEvent(document, 'click');
+    private clickEventSubscription: Subscription;
     private queryParamsSubscription: Subscription;
 
     constructor(
+        private renderer: Renderer2,
         private beersService: BeersService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
@@ -36,6 +50,21 @@ export class SearchComponent implements OnInit, OnDestroy {
             );
     }
 
+    public ngAfterViewInit() {
+        this.clickEventSubscription = this.clickEvent$.subscribe(
+            (event) => {
+                const resentListEl = this.searchInputRef.nativeElement;
+                const searchInputEl = this.searchInputRef.nativeElement;
+                if (searchInputEl === event.target) {
+                    this.resentIsOpened = true;
+                }
+                if (resentListEl) {
+                    this.resentIsOpened = !!resentListEl.contains(event.target);
+                }
+            }
+        );
+    }
+
     public onSearch(event: Event): void {
         if (this.searchControl.invalid) {
             return;
@@ -48,13 +77,7 @@ export class SearchComponent implements OnInit, OnDestroy {
             .trim()
             .replace(' ', '_');
 
-        this.router.navigate([], {
-            relativeTo: this.activatedRoute,
-            queryParams: {
-                beer_name: searchVal || null,
-            },
-            queryParamsHandling: 'merge',
-        });
+        this.navigate(searchVal);
 
         this.saveToResentSearches();
     }
@@ -62,15 +85,18 @@ export class SearchComponent implements OnInit, OnDestroy {
     public resetSearchControl(): void {
         this.beersService.clearBeers();
         this.searchControl.reset();
-        this.router.navigate([], {
-            relativeTo: this.activatedRoute,
-            queryParams: { beer_name: null },
-            queryParamsHandling: 'merge',
-        });
+        this.navigate();
+    }
+
+    public recallSearch(search: string) {
+        this.beersService.clearBeers();
+        this.navigate(search);
+        this.resentIsOpened = false;
     }
 
     public ngOnDestroy(): void {
         this.queryParamsSubscription.unsubscribe();
+        this.clickEventSubscription.unsubscribe();
     }
 
     private saveToResentSearches(): void {
@@ -88,6 +114,14 @@ export class SearchComponent implements OnInit, OnDestroy {
             this.resentSearches.pop();
         }
         this.resentSearches.unshift(searchValue);
+    }
+
+    private navigate(searchParam: string = null) {
+        this.router.navigate([], {
+            relativeTo: this.activatedRoute,
+            queryParams: { beer_name: searchParam },
+            queryParamsHandling: 'merge',
+        });
     }
 
 }
