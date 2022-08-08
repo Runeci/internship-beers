@@ -1,0 +1,53 @@
+.beer-info__item-card {
+    h2 {
+        font-weight: bold;
+        text-transform: uppercase;
+        text-align: center;
+    }
+
+    h3 {
+        color: #ff4081;
+        font-weight: bold;
+    }
+}
+
+.beer-info__item-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.beer-info__heading {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding: 10px;
+    text-align: center;
+
+    p {
+        font-size: 24px;
+        display: flex;
+        align-items: center;
+    }
+}
+
+.beer-info__item-img {
+    height: 200px;
+    object-fit: contain;
+    width: 100px;
+    box-sizing: border-box;
+}
+
+.beer-info__pairing {
+    ol {
+        padding-left: 16px;
+    }
+    p {
+        word-break: break-all;
+    }
+}
+
+.beer__btn-dislike {
+    background-color: #ff4081;
+    color: white;
+}

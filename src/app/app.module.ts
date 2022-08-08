@@ -22,6 +22,7 @@ import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-t
 import { MatBadgeModule } from '@angular/material/badge';
 import { FavoriteBeersModalComponent } from './features/favorite-beers/favorite-beers-modal/favorite-beers-modal.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { BeersItemInfoComponent } from './features/beers/beers-item-info/beers-item-info.component';
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         BeersItemComponent,
         ScrollToTopComponent,
         FavoriteBeersModalComponent,
+        BeersItemInfoComponent,
     ],
     imports: [
         BrowserModule,

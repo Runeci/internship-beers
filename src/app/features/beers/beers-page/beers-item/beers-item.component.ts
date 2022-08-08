@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Beer } from '../../../../shared/models/beers.interface';
 import { FavBeersService } from '../../../favorite-beers/fav-beers.service';
+import { MatDialog } from '@angular/material/dialog';
+import { BeersItemInfoComponent } from '../../beers-item-info/beers-item-info.component';
 
 
 @Component({
@@ -11,9 +13,11 @@ import { FavBeersService } from '../../../favorite-beers/fav-beers.service';
 export class BeersItemComponent implements OnInit {
     @Input() beer!: Beer;
 
-    favBeersIDs: Beer['id'][];
+    public favBeersIDs: Beer['id'][];
 
-    constructor(private beerFavService: FavBeersService) {
+    constructor(
+        private dialog: MatDialog,
+        private beerFavService: FavBeersService) {
     }
 
     public ngOnInit(): void {
@@ -29,4 +33,11 @@ export class BeersItemComponent implements OnInit {
         }
     }
 
+    public showMoreInfo(beer: Beer) {
+        this.dialog.open(BeersItemInfoComponent, {
+            data: beer,
+            maxHeight: '90vh',
+            maxWidth: '700px'
+        })
+    }
 }

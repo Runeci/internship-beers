@@ -1,0 +1,39 @@
+<div class="beer-info__item-card">
+    <h2>{{ beerItem.name }}</h2>
+    <mat-divider></mat-divider>
+  <div class="beer-info__item-content">
+      <div class="beer-info__heading">
+          <p>{{ beerItem.abv | currency: 'USD'}}</p>
+          <img
+              class="beer-info__item-img"
+              [src]="beerItem.image_url"
+              [alt]="beerItem.name"
+          >
+      </div>
+      <div class="beer-info__description">
+          <h3>Description</h3>
+          <p>{{ beerItem.description }}</p>
+      </div>
+
+      <div class="beer-info__pairing">
+          <h3>Food pairing</h3>
+          <ol class="">
+              <li *ngFor="let food of beerItem.food_pairing">
+                  {{ food }}
+              </li>
+          </ol>
+      </div>
+      <div class="beer-info__tips">
+          <h3>Brewers tips</h3>
+          {{ beerItem.brewers_tips }}
+      </div>
+  </div>
+    <button
+        mat-button
+        (click)="toggleFavBtn(beerItem)"
+        [ngClass]="{'beer__btn-dislike': favBeersIDs.includes(beerItem.id)}"
+    >
+        {{ favBeersIDs.includes(beerItem.id) ? 'REMOVE' : 'ADD' }}
+    </button>
+</div>
+
