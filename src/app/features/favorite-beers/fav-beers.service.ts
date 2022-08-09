@@ -11,7 +11,7 @@ export class FavBeersService {
 
     constructor(private lsService: LocalStorageService) {
         this.favItems = this.lsService.getFromLocalStorage('fav') || [];
-        this.favItemsIDs = this.lsService.getFromLocalStorage('fav').map((i: Beer) => i.id) || [];
+        this.favItemsIDs = this.lsService.getFromLocalStorage('fav')?.map((i: Beer) => i.id) || [];
     }
 
     public addToFav(favBeer: Beer): void {
