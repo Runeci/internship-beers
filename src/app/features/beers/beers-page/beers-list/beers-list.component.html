@@ -2,6 +2,7 @@
     <div class="beers__inner-container" *ngIf="beers.length">
         <ul class="beers__list">
             <app-beers-item
+                class="beers__item"
                 *ngFor="let beer of beers" [beer]="beer"
             ></app-beers-item>
         </ul>

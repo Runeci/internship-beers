@@ -4,11 +4,11 @@ import { Beer } from '../../../shared/models/beers.interface';
 import { FavBeersService } from '../../favorite-beers/fav-beers.service';
 
 @Component({
-    selector: 'app-beers-item-info',
-    templateUrl: './beers-item-info.component.html',
-    styleUrls: ['./beers-item-info.component.scss']
+    selector: 'app-beers-item-detail',
+    templateUrl: './beers-item-detail.component.html',
+    styleUrls: ['./beers-item-detail.component.scss']
 })
-export class BeersItemInfoComponent implements OnInit {
+export class BeersItemDetailComponent implements OnInit {
     public beerItem: Beer;
     public favBeersIDs: Beer['id'][];
 

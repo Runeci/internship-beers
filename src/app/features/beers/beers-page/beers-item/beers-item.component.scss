@@ -3,13 +3,14 @@
     align-items: center;
     justify-content: center;
 }
+
 .beer__item-card {
     max-width: 400px;
     box-sizing: border-box;
 }
 
 .beer__item-header {
-    height: 65px;
+    height: 80px;
 }
 
 .beer__item-content {
@@ -34,7 +35,7 @@
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
-        -webkit-line-clamp: 6;
+        -webkit-line-clamp: 4;
         -webkit-box-orient: vertical;
     }
 }
@@ -42,4 +43,13 @@
 .beer__btn-dislike {
     background-color: #ff4081;
     color: white;
+}
+
+@media (max-width: 390px) {
+    .beer__item-header {
+        .mat-card-title {
+            font-size: 18px;
+        }
+    }
+
 }

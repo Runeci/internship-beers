@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Beer } from '../../../../shared/models/beers.interface';
 import { FavBeersService } from '../../../favorite-beers/fav-beers.service';
 import { MatDialog } from '@angular/material/dialog';
-import { BeersItemInfoComponent } from '../../beers-item-info/beers-item-info.component';
+import { BeersItemDetailComponent } from '../../beers-item-detail/beers-item-detail.component';
 
 
 @Component({
@@ -34,10 +34,11 @@ export class BeersItemComponent implements OnInit {
     }
 
     public showMoreInfo(beer: Beer) {
-        this.dialog.open(BeersItemInfoComponent, {
+        this.dialog.open(BeersItemDetailComponent, {
             data: beer,
             maxHeight: '90vh',
-            maxWidth: '700px'
+            maxWidth: '700px',
+            width: '90%'
         })
     }
 }

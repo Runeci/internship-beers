@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
 
     public openFavorites(): void {
         this.dialog.open(FavoriteBeersModalComponent, {
-            maxHeight: '90vh'
+            maxHeight: '90vh',
         });
     }
 }

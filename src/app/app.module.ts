@@ -21,8 +21,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { ScrollToTopComponent } from './shared/components/scroll-to-top/scroll-to-top.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { FavoriteBeersModalComponent } from './features/favorite-beers/favorite-beers-modal/favorite-beers-modal.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { BeersItemInfoComponent } from './features/beers/beers-item-info/beers-item-info.component';
+import { MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { BeersItemDetailComponent } from './features/beers/beers-item-detail/beers-item-detail.component';
 
 @NgModule({
     declarations: [
@@ -34,7 +34,7 @@ import { BeersItemInfoComponent } from './features/beers/beers-item-info/beers-i
         BeersItemComponent,
         ScrollToTopComponent,
         FavoriteBeersModalComponent,
-        BeersItemInfoComponent,
+        BeersItemDetailComponent,
     ],
     imports: [
         BrowserModule,
@@ -52,7 +52,12 @@ import { BeersItemInfoComponent } from './features/beers/beers-item-info/beers-i
         MatBadgeModule,
         MatDialogModule,
     ],
-    providers: [],
+    providers: [
+        {
+            provide: MatDialogRef,
+            useValue: {}
+        },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

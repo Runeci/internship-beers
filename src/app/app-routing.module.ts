@@ -4,7 +4,7 @@ import { BeersPageComponent } from './features/beers/beers-page/beers-page.compo
 
 const routes: Routes = [
     { path: '', redirectTo: 'beers', pathMatch: 'full' },
-    { path: 'beers', component: BeersPageComponent }
+    { path: 'beers', component: BeersPageComponent },
 ];
 
 @NgModule({

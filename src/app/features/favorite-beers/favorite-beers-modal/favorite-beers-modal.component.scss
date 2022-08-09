@@ -27,3 +27,8 @@
     flex-direction: column
 }
 
+@media (max-width: 390px) {
+    .fav-beer__item-heading {
+        font-size: 16px;
+    }
+}

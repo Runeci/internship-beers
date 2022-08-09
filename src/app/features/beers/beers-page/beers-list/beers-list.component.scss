@@ -2,7 +2,7 @@
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    padding: 0 20px;
+    padding: 0;
     position: relative;
 }
 
@@ -19,6 +19,7 @@
         height: 34px;
         width: 34px;
     }
+
     p {
         margin: 0;
     }
@@ -42,3 +43,22 @@
     margin-right: -50%;
     transform: translate(-50%, -50%)
 }
+
+@media (max-width: 390px) {
+    .beers__item {
+        max-width: 280px;
+    }
+
+    .beers__list {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 460px) {
+    .beers__btn {
+        max-width: 180px;
+    }
+}
+
