@@ -3,12 +3,12 @@
         <div class="header__title"><h1>Beers</h1></div>
 
         <div class="header__aside-container">
-            <ng-container *ngIf="favItems.length">
+            <ng-container *ngIf="favItemsAmount$ | async">
                 <button
                     class="header__fav-btn"
                     mat-flat-button
                     color="primary"
-                    [matBadge]="favItems.length"
+                    [matBadge]="favItemsAmount$ | async"
                     (click)="openFavorites()"
                     matBadgeColor="accent"
                 >Favourites

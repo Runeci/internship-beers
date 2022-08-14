@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    OnInit,
+} from '@angular/core';
 import { FavBeersService } from '../../features/favorite-beers/fav-beers.service';
-import { Beer } from '../../shared/models/beers.interface';
+
 import {
     FavoriteBeersModalComponent
 } from '../../features/favorite-beers/favorite-beers-modal/favorite-beers-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { map, Observable } from 'rxjs';
+
 
 @Component({
     selector: 'app-header',
     templateUrl: './header.component.html',
-    styleUrls: ['./header.component.scss']
+    styleUrls: ['./header.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
-    public favItems: Beer['id'][];
+    public favItemsAmount$: Observable<number>;
 
     constructor(
         private dialog: MatDialog,
@@ -21,7 +28,11 @@ export class HeaderComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.favItems = this.beersFavService.favItemsIDs;
+        this.favItemsAmount$ = this.beersFavService.favBeers$
+            .pipe(
+                map(beers => beers.length)
+            );
+
     }
 
     public openFavorites(): void {

@@ -1,28 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Beer } from '../../shared/models/beers.interface';
+import { Beer } from '../beers/models/beers.interface';
 import { LocalStorageService } from '../../shared/services/local-storage.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class FavBeersService {
-    public favItems: Beer[] = [];
-    public favItemsIDs: Beer['id'][] = [];
+    public favBeers$: BehaviorSubject<Beer[]>;
 
     constructor(private lsService: LocalStorageService) {
-        this.favItems = this.lsService.getFromLocalStorage('fav') || [];
-        this.favItemsIDs = this.lsService.getFromLocalStorage('fav')?.map((i: Beer) => i.id) || [];
+        const favBeers = this.lsService.getFromLocalStorage('fav') || [];
+        this.favBeers$ = new BehaviorSubject<Beer[]>(favBeers);
     }
 
     public addToFav(favBeer: Beer): void {
-        this.favItems.push(favBeer);
-        this.favItemsIDs.push(favBeer.id);
-        this.lsService.saveToLocalStorage('fav', this.favItems);
+        this.favBeers$.next([...this.favBeers$.getValue(), favBeer]);
+        this.lsService.saveToLocalStorage('fav', this.favBeers$.getValue());
     }
 
     public removeFromFav(favBeerIndex: number) {
-        this.favItems.splice(favBeerIndex, 1);
-        this.favItemsIDs.splice(favBeerIndex, 1);
-        this.lsService.saveToLocalStorage('fav', this.favItems);
+        this.favBeers$.getValue().splice(favBeerIndex, 1);
+        this.favBeers$.next(this.favBeers$.getValue()) ;
+        this.lsService.saveToLocalStorage('fav', this.favBeers$.getValue());
     }
 }

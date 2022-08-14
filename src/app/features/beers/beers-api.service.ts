@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Beer } from '../../shared/models/beers.interface';
+import { Beer } from './models/beers.interface';
 import { Observable } from 'rxjs';
-import { QueryParamsBeers } from './beers.service';
+import { QueryParamsBeersSettings } from './beers.service';
 
 export const BEERS_DATA_API = 'https://api.punkapi.com/v2';
 
@@ -13,7 +13,7 @@ export class BeersApiService {
     constructor(private http: HttpClient) {
     }
 
-    public getBeers(queryParams: QueryParamsBeers): Observable<Beer[]> {
+    public getBeers(queryParams: QueryParamsBeersSettings): Observable<Beer[]> {
         const params = new HttpParams({ fromObject: { ...queryParams } });
         return this.http.get<Beer[]>(
             `${ BEERS_DATA_API }/beers`,

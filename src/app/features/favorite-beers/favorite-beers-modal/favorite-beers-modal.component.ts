@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FavBeersService } from '../fav-beers.service';
-import { Beer } from '../../../shared/models/beers.interface';
+import { Beer } from '../../beers/models/beers.interface';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
     selector: 'app-favorite-beers-modal',
@@ -9,7 +10,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
     styleUrls: ['./favorite-beers-modal.component.scss']
 })
 export class FavoriteBeersModalComponent implements OnInit {
-    public favItems: Beer[];
+    public favItems$: BehaviorSubject<Beer[]>;
 
     constructor(
         private dialog: MatDialog,
@@ -18,14 +19,14 @@ export class FavoriteBeersModalComponent implements OnInit {
     }
 
     public ngOnInit(): void {
-        this.favItems = this.favBeerService.favItems;
+        this.favItems$ = this.favBeerService.favBeers$;
     }
 
-    public onRemoveFav(favBeerIndex: number): void {
-        const favItemIndex = this.favBeerService.favItemsIDs.indexOf(favBeerIndex);
+    public onRemoveFav(favBeerIndex: Beer['id']): void {
+        const favItemIndex = this.favItems$.getValue().map(beer => beer.id).indexOf(favBeerIndex);
         this.favBeerService.removeFromFav(favItemIndex);
 
-        if (!this.favItems.length) {
+        if (!this.favItems$.getValue().length) {
             this.dialogRef.close();
         }
     }

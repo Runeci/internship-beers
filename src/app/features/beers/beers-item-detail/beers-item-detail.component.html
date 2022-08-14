@@ -31,9 +31,9 @@
     <button
         mat-button
         (click)="toggleFavBtn(beerItem)"
-        [ngClass]="{'beer__btn-dislike': favBeersIDs.includes(beerItem.id)}"
+        [ngClass]="{'beer__btn-dislike': (favBeersIDs$ | async).includes(beerItem.id)}"
     >
-        {{ favBeersIDs.includes(beerItem.id) ? 'REMOVE' : 'ADD' }}
+        {{ (favBeersIDs$ | async).includes(beerItem.id) ? 'REMOVE' : 'ADD' }}
     </button>
 </div>
 

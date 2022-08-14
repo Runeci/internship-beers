@@ -1,5 +1,5 @@
 <div class="fav-beer__item-container">
-    <mat-list-item *ngFor="let favItem of favItems">
+    <mat-list-item *ngFor="let favItem of favItems$ | async">
         <mat-card class="fav-beer__item-card">
             <img
                 class="fav-beer__item-img"
